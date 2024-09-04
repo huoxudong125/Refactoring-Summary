@@ -2,14 +2,13 @@
 这是我对Martin Fowler的《重构：改进现有代码的设计》的总结。我在学习时使用它，并作为快速参考。它并不打算成为这本书的独立替代品，所以如果你真的想学习这里介绍的概念，请购买并阅读这本书，并将此存储库用作参考和指南。
 
   
-如果你是发布者，并且认为这个仓库不应该公开，只要给我发一封电子邮件到hugomatilla \[at\] gmail \[dot\] com，我会把它变成私人的。
+如果你是发布者，并且认为这个仓库不应该公开，只要给我发一封电子邮件到huoxudong125 \[at\] gmail \[dot\] com，我会把它变成私人的。
 
   
 贡献：问题，评论和拉请求是超级受欢迎的。
 
 *   [1.内容表](#1-table-of-content)
-*   [  
-    3.代码中的难闻气味](#3-bad-smells-in-code)
+*   [3.代码中的难闻气味](#3-bad-smells-in-code)
     *   [1.重复代码](#1-duplicated-code)
     *   [2.长方法](#2-long-method)
     *   [3.大班](#3-large-classes)
@@ -20,20 +19,15 @@
     *   [8.数据块](#8-data-clumps)
     *   [9.原始痴迷](#9-primitive-obsession)
     *   [10\. Switch语句](#10-switch-statements)
-    *   [  
-        11.并行继承层次](#11-parallel-inheritance-hierarchies)
+    *   [11.并行继承层次](#11-parallel-inheritance-hierarchies)
     *   [12.懒惰的阶级](#12-lazy-class)
-    *   [  
-        13.投机性的普遍性](#13-speculative-generality)
+    *   [13.投机性的普遍性](#13-speculative-generality)
     *   [14.临时外勤](#14-temporary-field)
     *   [15.消息间链](#15-message-chain)
     *   [16.中间人](#16-middle-man)
-    *   [  
-        17.不适当的亲密](#17-inappropriate-intimacy)
-    *   [  
-        18.具有不同接口的替代类](#18-alternative-classes-with-different-interfaces)
-    *   [  
-        19.不完整的库类](#19-incomplete-library-class)
+    *   [17.不适当的亲密](#17-inappropriate-intimacy)
+    *   [18.具有不同接口的替代类](#18-alternative-classes-with-different-interfaces)
+    *   [19.不完整的库类](#19-incomplete-library-class)
     *   [20.数据类](#20-data-class)
     *   [21.拒绝遗赠](#21-refused-bequest)
     *   [22.评论](#22-comments)
@@ -41,109 +35,67 @@
     *   [1.提取方法](#1-extract-method)
     *   [2.内联方法](#2-inline-method)
     *   [3.在线温度](#3-inline-temp)
-    *   [  
-        4.将Temp替换为Query](#4-replace-temp-with-query)
-    *   [  
-        5.引入解释变量](#5-introduce-explaining-variable)
-    *   [  
-        6.拆分临时变量](#6-split-temporary-variable)
-    *   [  
-        7.删除参数](#7-remove-assignments-to-parameters)
-    *   [  
-        8.用方法对象替换方法](#8-replace-method-with-method-object)
+    *   [4.将Temp替换为Query](#4-replace-temp-with-query)
+    *   [5.引入解释变量](#5-introduce-explaining-variable)
+    *   [6.拆分临时变量](#6-split-temporary-variable)
+    *   [7.删除参数](#7-remove-assignments-to-parameters)
+    *   [8.用方法对象替换方法](#8-replace-method-with-method-object)
     *   [9.替代算法](#9-substitute-algorithm)
-*   [  
-    7.在元素之间移动要素](#7-moving-features-between-elements)
+*   [7.在元素之间移动要素](#7-moving-features-between-elements)
     *   [10\. Move方法](#10-move-method)
     *   [11.搬场](#11-move-field)
     *   [12.提取类](#12-extract-class)
     *   [13.内联类](#13-inline-class)
     *   [14.隐藏委托](#14-hide-delegate)
     *   [15.删除中间人](#15-remove-middle-man)
-    *   [  
-        16.引进国外方法](#16-introduce-foreign-method)
-    *   [  
-        17.引入本地扩展](#17-introduce-local-extension)
+    *   [16.引进国外方法](#16-introduce-foreign-method)
+    *   [17.引入本地扩展](#17-introduce-local-extension)
 *   [8.组织数据](#8-organizing-data)
-    *   [  
-        18.自封装字段](#18-self-encapsulate-field)
-    *   [  
-        19.将数据值替换为对象](#19-replace-data-value-with-object)
-    *   [  
-        20.将值更改为参考](#20-change-value-to-reference)
-    *   [  
-        21.更改对值的引用](#21-change-reference-to-value)
-    *   [  
-        22.将数组替换为对象](#22-replace-array-with-object)
-    *   [  
-        23.重复观察数据](#23-duplicate-observed-data)
-    *   [  
-        24.将单向关联更改为双向关联](#24-change-unidirectional-association-to-bidirectional)
-    *   [  
-        25.将双向关联更改为单向](#25-change-bidirectional-association-to-unidirectional)
-    *   [  
-        26.用符号常数代替幻数](#26-replace-magic-number-with-symbolic-constant)
+    *   [18.自封装字段](#18-self-encapsulate-field)
+    *   [19.将数据值替换为对象](#19-replace-data-value-with-object)
+    *   [20.将值更改为参考](#20-change-value-to-reference)
+    *   [21.更改对值的引用](#21-change-reference-to-value)
+    *   [22.将数组替换为对象](#22-replace-array-with-object)
+    *   [23.重复观察数据](#23-duplicate-observed-data)
+    *   [24.将单向关联更改为双向关联](#24-change-unidirectional-association-to-bidirectional)
+    *   [25.将双向关联更改为单向](#25-change-bidirectional-association-to-unidirectional)
+    *   [26.用符号常数代替幻数](#26-replace-magic-number-with-symbolic-constant)
     *   [27.封装字段](#27-encapsulate-field)
-    *   [  
-        28.封装集合](#28-encapsulate-collection)
-    *   [  
-        29.删除带有数据类的记录](#29-remove-record-with-data-class)
-    *   [  
-        30.将类型代码替换为类](#30-replace-type-code-with-class)
-    *   [  
-        31.用子类替换类型代码](#31-replace-type-code-with-subclasses)
-    *   [  
-        32.将类型代码替换为状态/策略](#32-replace-type-code-with-statestrategy)
-    *   [  
-        32.用字段替换子类](#32-replace-subclass-with-fields)
-*   [  
-    9.条件表达式的简化](#9-simplifying-conditional-expressions)
-    *   [  
-        33.分解条件](#33-decompose-conditional)
-    *   [  
-        34.合并条件表达式](#34-consolidate-conditional-expression)
-    *   [  
-        35.合并重复的条件片段](#35-consolidate-duplicate-conditional-fragments)
+    *   [28.封装集合](#28-encapsulate-collection)
+    *   [29.删除带有数据类的记录](#29-remove-record-with-data-class)
+    *   [30.将类型代码替换为类](#30-replace-type-code-with-class)
+    *   [31.用子类替换类型代码](#31-replace-type-code-with-subclasses)
+    *   [32.将类型代码替换为状态/策略](#32-replace-type-code-with-statestrategy)
+    *   [32.用字段替换子类](#32-replace-subclass-with-fields)
+*   [9.条件表达式的简化](#9-simplifying-conditional-expressions)
+    *   [33.分解条件](#33-decompose-conditional)
+    *   [34.合并条件表达式](#34-consolidate-conditional-expression)
+    *   [35.合并重复的条件片段](#35-consolidate-duplicate-conditional-fragments)
     *   [36.删除控制标志](#36-remove-control-flag)
-    *   [  
-        37.用Guard子句替换嵌套条件句](#37-replace-nested-conditional-with-guard-clauses)
-    *   [  
-        38.将条件替换为多态](#38-replace-conditional-with-polymorphism)
-    *   [  
-        39.介绍对象](#39-introduce-null-object)
+    *   [37.用Guard子句替换嵌套条件句](#37-replace-nested-conditional-with-guard-clauses)
+    *   [38.将条件替换为多态](#38-replace-conditional-with-polymorphism)
+    *   [39.介绍对象](#39-introduce-null-object)
     *   [40.介绍断言](#40-introduce-assertion)
-*   [  
-    10.让方法更简单](#10-making-method-calls-simpler)
+*   [10.让方法更简单](#10-making-method-calls-simpler)
     *   [41.反渗透法](#41-rename-method)
     *   [42.添加参数](#42-add-parameter)
     *   [43.删除参数](#43-remove-parameter)
-    *   [  
-        44.将查询与修改器分开](#44-separate-query-from-modifier)
+    *   [44.将查询与修改器分开](#44-separate-query-from-modifier)
     *   [45.参数化方法](#45-parameterize-method)
-    *   [  
-        46.用显式方法替换参数](#46-replace-parameter-with-explicit-methods)
-    *   [  
-        47.保留整个对象](#47-preserve-whole-object)
-    *   [  
-        48.将参数替换为方法](#48-replace-parameter-with-method)
-    *   [  
-        49.引入参数对象](#49-introduce-parameter-object)
-    *   [  
-        50.删除设置方法](#50-remove-setting-method)
+    *   [46.用显式方法替换参数](#46-replace-parameter-with-explicit-methods)
+    *   [47.保留整个对象](#47-preserve-whole-object)
+    *   [48.将参数替换为方法](#48-replace-parameter-with-method)
+    *   [49.引入参数对象](#49-introduce-parameter-object)
+    *   [50.删除设置方法](#50-remove-setting-method)
     *   [51\. Hide方法](#51-hide-method)
-    *   [  
-        52.将构造函数替换为工厂方法](#52-replace-constructor-with-factory-method)
+    *   [52.将构造函数替换为工厂方法](#52-replace-constructor-with-factory-method)
     *   [53.封装Downcast](#53-encapsulate-downcast)
-    *   [  
-        54.将错误代码替换为异常](#54-replace-error-code-with-exception)
-    *   [  
-        55.将异常替换为测试](#55-replace-exception-with-test)
-*   [  
-    11.处理泛化](#11-dealing-with-generalization)
+    *   [54.将错误代码替换为异常](#54-replace-error-code-with-exception)
+    *   [55.将异常替换为测试](#55-replace-exception-with-test)
+*   [11.处理泛化](#11-dealing-with-generalization)
     *   [56.上拉场](#56-pull-up-field)
     *   [57.上拉法](#57-pull-up-method)
-    *   [  
-        58.上拉构造器主体](#58-pull-up-constructor-body)
+    *   [58.上拉构造器主体](#58-pull-up-constructor-body)
     *   [59.下推法](#59-push-down-method)
     *   [60.下推字段](#60-push-down-field)
     *   [61.提取子类](#61-extract-subclass)
@@ -151,17 +103,12 @@
     *   [63.提取接口](#63-extract-interface)
     *   [64.折叠层次结构](#64-collapse-hierarchy)
     *   [65.表单模板方法](#65-form-template-method)
-    *   [  
-        66.将继承替换为委托](#66-replace-inheritance-with-delegation)
-    *   [  
-        67.将委托替换为继承](#67-replace-delegation-with-inheritance)
+    *   [66.将继承替换为委托](#66-replace-inheritance-with-delegation)
+    *   [67.将委托替换为继承](#67-replace-delegation-with-inheritance)
 *   [12.大重构](#12-big-refactorings)
-    *   [  
-        68.第1113章挑拨传承](#68-tease-apart-inheritance)
-    *   [  
-        69.将程序设计转换为对象](#69-convert-procedural-design-to-objects)
-    *   [  
-        70.将域与表示分离](#70-separate-domain-from-presentation)
+    *   [68.第1113章挑拨传承](#68-tease-apart-inheritance)
+    *   [69.将程序设计转换为对象](#69-convert-procedural-design-to-objects)
+    *   [70.将域与表示分离](#70-separate-domain-from-presentation)
     *   [71.提取层次结构](#71-extract-hierarchy)
 
   
